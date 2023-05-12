@@ -1,4 +1,5 @@
 # The Noob's guide to installing Arch Linux
+**(Warning; contains strong language.)**
 
 ## -1: Preamble
 
@@ -41,4 +42,22 @@ Many things in Linux are stored as files (or folders), including system stats (t
 To install Arch Linux, you *must* connect to the internet. We will use `iwd` (iNet Wireless Daemon) to do so.
 1. Run `iwctl`. This starts the iNet Wireless ConTroL utility. You should see a prompt similar to `[iwd]#`.
 2. Run `device list`. This, quite obviously, lists the available wireless network devices detected. Take note of the device name of your network card (this is often `wlan0`.
-3. run `station <device name> scan`. For example, if your network card is named `wlan0`, you would run `station wlan0 scan`. 
+3. Run `station <device name> scan`. For example, if your network card is named `wlan0`, you would run `station wlan0 scan`. This scans your surroundings for networks `<device name>` can connect to. *This will not list the networks found. Don't panic - we're getting to that part.*
+4. Run `station <device name> get-networks`. This will list the networks found in the previous step.
+5. Run `station <device name> connect <network SSID>`. Obviously, this connects to the network you specify in the command. It may ask for the network password.
+6. Run `exit` to exit `iwctl`.
+
+### 1.3: Partitioning the disks
+
+This is the most fuck-up-able step. Don't back up your computer because you are perfect and don't make mistakes.
+
+1. Run `fdisk -l` to list all disks and partitions. *This does not list free space.* Take note of the device you want to install arch linux on.
+2. You can also run `fdisk -l <device name>` to list the partitions inside that device. For example, if your device is named `/dev/sda1`, run `fdisk -l /dev/sda1`.
+3. Run `cfdisk <device name>`. This is a utility which will allow you to manage partitions in `<device name>`.
+4. If you are installing Arch on a clean disk (or a virtual machine), you will likely get a prompt that says 'Select label type'. Choose `gpt`.
+5. Navigate to the free space you wish to use (up and down arrow keys) and select `[New]` (right and left arrow keys + enter).
+6. Create a partition of at least 500MB size.
+7. Repeat steps 4 and 5 to create another partition of whatever size you want. This is going to be where the actual OS and your files are, so make it big as fuck.
+8. Optional: repeat steps 4 and 5 to create another partition. This is going to be the swap partition, space which is used to offload stuff in RAM when the RAM fills up. For most modern systems, you probably won't need this, but I always make one so I can show it off to my friends.
+9. Now select the partition you made in step 6. Select `[Type]`. In the menu that appears, select `EFI System`.
+10. You don't have to change the file type of the second partition that you made. It's already `Linux filesystem`. If you made a swap partition, change the type of that to `Linux swap`.
