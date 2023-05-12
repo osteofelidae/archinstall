@@ -1,5 +1,5 @@
 # The Dum Dum User's guide to installing Arch Linux
---> osteofelidae
+by osteofelidae
 
 **(Warning: contains strong language, mostly 'fuck' and variants thereof.)**
 
