@@ -7,6 +7,8 @@ by osteofelidae
 
 I was just like you once, a complete newbie to linux. I had just grown tired of my Mint install, and was browsing the internet for an alternative. I stumbled upon Arch, and was captivated; all the tech articles had buzzwords like 'Do it Yourself!' and 'rolling release!' After using it for a year, I can safely say that the DIY part, at least, is cool as fuck. Thus, I'm making this guide in the hopes that more of you get sucked down the glorious rabbit hole that is Arch Linux. Enjoy! :)
 
+P.S. I learned from [here](https://www.freecodecamp.org/news/how-to-install-arch-linux/), so this guide will go along much of the same lines. However, I will endeavor to be more explanatory, succint, and passive-aggressive.
+
 ## 0: Assumptions
 
 ### 0.0: Assumptions I'm making
