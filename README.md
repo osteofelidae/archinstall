@@ -102,4 +102,37 @@ We now need to mount some of the partitions in order to access the files in them
 	- `pacman` is the Arch Linux package manager. It can download and install software for you.
 	- `-S` is a flag that tells `pacman` to sync its cache with the online mirror list.
 	- `y` is a flag (sub-flag?) that tells `pacman` to refresh its local copy of the master package database with those it finds online.
-2. 
+2. Run `pacstrap /mnt base base-devel linux linux-firmware sudo nano ntfs-3g networkmanager`. Holy shit what a mouthful.
+	- `pacstrap` is the equivalent of `pacman` but for a specified root directory - here, it is `/mnt`. Since we mounted our new root partition on `/mnt`, we are now installing packages on the root partition.
+	- `base` is the package group for a base Arch install.
+	- `base-devel` is a package group for common build dependencies.
+	- `linux` is the linux kernel.
+	- `linux-firmware` are common drivers.
+	- `sudo` is a tool which allows us to execute commands as the superuser. More on that later on.
+	- `nano` is a command-line text editor.
+	- `ntfs-3g` is a package which allows us to access and modify ntfs partitions, such as windows installations.
+	- `networkmanager` is a package which allows us to access the internet.
+3. Wait until you see the command prompt again. This is going to take a while.
+
+### 2.1 Configuration
+
+1. Run `genfstab -U /mnt >> /mnt/etc/fstab`. This will generate the fstab file.
+	- The fstab file is a file which defines how external devices should be mounted.
+	- `genfstab` generates a list of mount points below a given one, here `/mnt`.
+	- `>>` redirects the output of the command into a certain file, here `/mnt/etc/fstab`.
+2. Run `arch-chroot /mnt`.
+	- `arch-chroot` logs you in as the root user of another Arch system, here specified by `/mnt` (the one you just installed.)
+3. Run `timedatectl set-ntp true`.
+	- `timedatectl` is a package which allows you to do various things with the system's clock.
+	- `set-ntp true` tells `timedatectl` to sync the system clock using NTP. NTP (Network Time Protocol) is used to sync clocks online.
+4. Run `ls /usr/share/zoneinfo/**/*`. Remember how earlier I said that timezones are stored in files? Here they are.
+5. Run `ln -sf /usr/share/zoneinfo/<Timezone path> /etc/localtime`. For example, if you live in Phoenix, Arizona, use `ln -sf /usr/share/zoneinfo/America/Phoenix /etc/localtime`. This sets your timezone.
+	- `ln` creates a link between files.
+	- `-s` creates a symbolic link (shortcut).
+	- `-f` removes the destination file if it exists, here `/etc/localtime`.
+6. Run `nano /etc/locale.gen`. Uncomment (remove the `#`) from any languages you want to use. Most commonly, this will only be `en_US.UTF-8`. Save the file (ctrl+o then enter) and exit nano (ctrl+x).
+7. Run `locale-gen`.
+	- `locale-gen` reads the file you have just edited and generates the locales accordingly. You should see all the lines you uncommented in step 6 be printed on the screen. If you don't, you fucked up.
+8. If you changed your keymaps while installing, make them persist. Run `nano /etc/vconsole.conf` and add the line `KEYMAP=<Keymap name>`. For example, if you used the keymap `mac-us`, add `KEYMAP=mac-us`,
+9. Run `nano /etc/hostname`. Add the line `<Hostname>` where 'Hostname' is whatever you want your computer to be called. Save and exit.
+10. Run `nano /etc/hosts`. 
