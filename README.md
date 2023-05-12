@@ -25,18 +25,19 @@ P.S. I learned from [here](https://www.freecodecamp.org/news/how-to-install-arch
 2. Get to the boot menu. (Again, this is accessed in different ways on different systems. If you don't know how, google it for your specific system.)
 3. Boot from the USB drive you just installed.
 4. On the menu that appears, select the first option containing something along the lines of 'Arch Linux install medium'.
-5. Wait for it to load (it may take a while) and don't touch the computer until it gives you a command prompt along the lines of `root@archiso ~ #`. (The `#` at the end signifies that you are logged in as the root user, as opposed to a `$` which signifies a normal user.) 
+5. Wait for it to load (it may take a while) and don't touch the computer until it gives you a command prompt along the lines of `root@archiso ~ #`. 
+	- The `#` at the end signifies that you are logged in as the root user, as opposed to a `$` which signifies a normal user.
 
 ### 1.1: Keyboard format
 
 You *probably* won't have to do this step. The only reason why you *should* is if you use a mac (macs suck /j) or if you have a foreign/non-qwerty keyboard.
 
 Many things in Linux are stored as files (or folders), including system stats (temperature, cpu usage, memory usage, etc.), connected devices and peripherals, and keymaps. The keymaps are stored in `/usr/share/kbd/keymaps`. 
-- Run the command `ls /usr/share/kbd/keymaps/**/*.map.gz` to display them.
+1. Run the command `ls /usr/share/kbd/keymaps/**/*.map.gz` to display them.
 	- The `ls` command lists all files in a given directory.
 	- `*` is called a 'wildcard', and means 'anything'. In this case, `*.map.gz` means 'anything that ends in .map.gz'.
 	- `**` means 'any directories and subdirectories the current directory contains. In this case, it references `.../keymaps/mac`, `.../keymaps/sum`, etc..
-- Run `loadkeys <keymap name>` to load a keymap. For example, to load `.../mac-us.map.gz`, run `loadkeys mac-us`. (Notice how the file path and extension are not included.
+2. Run `loadkeys <keymap name>` to load a keymap. For example, to load `.../mac-us.map.gz`, run `loadkeys mac-us`. (Notice how the file path and extension are not included.
 
 ### 1.2: Connecting to the internet (this is hella important!!!)
 
