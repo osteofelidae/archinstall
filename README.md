@@ -102,7 +102,7 @@ We now need to mount some of the partitions in order to access the files in them
 	- `pacman` is the Arch Linux package manager. It can download and install software for you.
 	- `-S` is a flag that tells `pacman` to sync its cache with the online mirror list.
 	- `y` is a flag (sub-flag?) that tells `pacman` to refresh its local copy of the master package database with those it finds online.
-2. Run `pacstrap /mnt base base-devel linux linux-firmware sudo nano ntfs-3g networkmanager`. Holy shit what a mouthful.
+2. Run `pacstrap /mnt base base-devel linux linux-firmware sudo nano ntfs-3g networkmanager iwd`. Holy shit what a mouthful.
 	- `pacstrap` is the equivalent of `pacman` but for a specified root directory - here, it is `/mnt`. Since we mounted our new root partition on `/mnt`, we are now installing packages on the root partition.
 	- `base` is the package group for a base Arch install.
 	- `base-devel` is a package group for common build dependencies.
@@ -112,9 +112,10 @@ We now need to mount some of the partitions in order to access the files in them
 	- `nano` is a command-line text editor.
 	- `ntfs-3g` is a package which allows us to access and modify ntfs partitions, such as windows installations.
 	- `networkmanager` is a package which allows us to access the internet.
+	- `iwd` is a package which allows you to easily control `networkmanager`, like in section 1.2.
 3. Wait until you see the command prompt again. This is going to take a while.
 
-### 2.1 Configuration
+### 2.1: Configuration
 
 1. Run `genfstab -U /mnt >> /mnt/etc/fstab`. This will generate the fstab file.
 	- The fstab file is a file which defines how external devices should be mounted.
@@ -151,7 +152,7 @@ We now need to mount some of the partitions in order to access the files in them
 16. Run `nano /etc/sudoers`. Uncomment the line `# %wheel ALL=(ALL:ALL) ALL`.
 	- This allows the `wheel` user group to execute the `sudo` command.
 
-## 2.2 Installing Grub
+## 2.2: Installing Grub
 
 We will first install microcode, which is the instruction set for your processor and serves as a translator between Arch and your processor.
 - If you have an intel processor, run `pacman -S intel-ucode`.
@@ -175,3 +176,8 @@ To load your new arch install, we need a bootloader. We will be using `grub` bec
 	- `grub-mkconfig` generates the `grub` configuration.
 	- `-o`saves the generated configuration to the given file.
 
+Congrats, you're done (If you didn't fuck up).
+
+## 3: Quality of life
+
+(I haven't done this part yet)
