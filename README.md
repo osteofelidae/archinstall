@@ -1,5 +1,5 @@
 # The Noob's guide to installing Arch Linux
-**(Warning; contains strong language.)**
+**(Warning: contains strong language, mostly 'fuck' and variants thereof.)**
 
 ## -1: Preamble
 
@@ -29,7 +29,7 @@ You *probably* won't have to do this step. The only reason why you *should* is i
 
 Many things in Linux are stored as files (or folders), including system stats (temperature, cpu usage, memory usage, etc.), connected devices and peripherals, and keymaps. The keymaps are stored in `/usr/share/kbd/keymaps`. 
 - Run the command `ls /usr/share/kbd/keymaps/**/*.map.gz` to display them.
-	- The `ls` command lists all files in a given directory. Learn more by reading the [ls manpage (manual page)](https://man7.org/linux/man-pages/man1/ls.1.html).
+	- The `ls` command lists all files in a given directory.
 	- `*` is called a 'wildcard', and means 'anything'. In this case, `*.map.gz` means 'anything that ends in .map.gz'.
 	- `**` means 'any directories and subdirectories the current directory contains. In this case, it references `.../keymaps/mac`, `.../keymaps/sum`, etc..
 - Run `loadkeys <keymap name>` to load a keymap. For example, to load `.../mac-us.map.gz`, run `loadkeys mac-us`. (Notice how the file path and extension are not included.
@@ -52,8 +52,12 @@ To install Arch Linux, you *must* connect to the internet. We will use `iwd` (iN
 This is the most fuck-up-able step. Don't back up your computer because you are perfect and don't make mistakes.
 
 1. Run `fdisk -l` to list all disks and partitions. *This does not list free space.* Take note of the device you want to install arch linux on.
+	- `fdisk` is a disk utility commonly found on DOS, Linux, and Windows.
+	- `-l` is a flag which tells `fdisk` to list the partitions it sees.
 2. You can also run `fdisk -l <device name>` to list the partitions inside that device. For example, if your device is named `/dev/sda1`, run `fdisk -l /dev/sda1`.
-3. Run `cfdisk <device name>`. This is a utility which will allow you to manage partitions in `<device name>`.
+3. Run `cfdisk <device name>`.
+	- `cfdisk` is fdisk but with a better ui.
+	- the `c` stands for Curses, which is a library that allows interactive gui-like elements in a terminal window.
 4. If you are installing Arch on a clean disk (or a virtual machine), you will likely get a prompt that says 'Select label type'. Choose `gpt`.
 5. Navigate to the free space you wish to use (up and down arrow keys) and select `[New]` (right and left arrow keys + enter).
 6. Create a partition of at least 500MB size.
@@ -61,3 +65,15 @@ This is the most fuck-up-able step. Don't back up your computer because you are 
 8. Optional: repeat steps 4 and 5 to create another partition. This is going to be the swap partition, space which is used to offload stuff in RAM when the RAM fills up. For most modern systems, you probably won't need this, but I always make one so I can show it off to my friends.
 9. Now select the partition you made in step 6. Select `[Type]`. In the menu that appears, select `EFI System`.
 10. You don't have to change the file type of the second partition that you made. It's already `Linux filesystem`. If you made a swap partition, change the type of that to `Linux swap`.
+11. Select `[Write]`. (If you fucked up, don't.)
+12. Select `[Quit]`.
+
+### 1.4: Formatting the partitions
+
+This is a direct continuation of part 1.3.
+
+1. Run `fdisk -l` again. You should see the new partitions you just made. Take a note of their names.
+2. Run `mkfs.fat -F32 <EFI partition name>`.
+	- `mkfs` is a command which generates a filesystem in a given partition.
+	- `.fat` is a variant of that command which generates a FAT filesystem.
+	- `-F32` is a flag which specifies the FAT32 variant of the FAT filesystem.
