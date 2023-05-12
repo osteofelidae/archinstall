@@ -26,4 +26,7 @@ I was just like you once, a complete newbie to linux. I had just grown tired of 
 
 You *probably* won't have to do this step. The only reason why you *should* is if you use a mac (macs suck /j) or if you have a foreign/non-qwerty keyboard.
 
-Many things in Linux are stored as files (or folders), including system stats (temperature, cpu usage, memory usage, etc.), connected devices and peripherals, and keymaps. 
+Many things in Linux are stored as files (or folders), including system stats (temperature, cpu usage, memory usage, etc.), connected devices and peripherals, and keymaps. The keymaps are stored in `/usr/share/kbd/keymaps`. 
+- Run the command `ls /usr/share/kbd/keymaps/**/*.map.gz` to display them.
+	- The `ls` command lists all files in a given directory. Learn more by reading the [https://man7.org/linux/man-pages/man1/ls.1.html](ls manpage \(manual page\)). 
+	- 
