@@ -1,4 +1,4 @@
-# The Noob's guide to installing Arch Linux
+# The Dum Dum User's guide to installing Arch Linux
 --> osteofelidae
 **(Warning: contains strong language, mostly 'fuck' and variants thereof.)**
 
