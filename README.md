@@ -135,4 +135,17 @@ We now need to mount some of the partitions in order to access the files in them
 	- `locale-gen` reads the file you have just edited and generates the locales accordingly. You should see all the lines you uncommented in step 6 be printed on the screen. If you don't, you fucked up.
 8. If you changed your keymaps while installing, make them persist. Run `nano /etc/vconsole.conf` and add the line `KEYMAP=<Keymap name>`. For example, if you used the keymap `mac-us`, add `KEYMAP=mac-us`,
 9. Run `nano /etc/hostname`. Add the line `<Hostname>` where 'Hostname' is whatever you want your computer to be called. Save and exit.
-10. Run `nano /etc/hosts`. 
+10. Run `nano /etc/hosts`.
+	- `/etc/hosts` is a file that contains explicit hostname definitions.
+11. Add the following lines: `127.0.0.1	localhost`, `::1	localhost`, `127.0.1.1	<Hostname>`. Save and exit.
+12. Run `systemctl enable NetworkManager`.
+	- `systemctl` is a tool for controlling startup programs.
+	- `enable NetworkManager` tells `systemctl` that you want to start `NetworkManager` when the system starts.
+13. Run `passwd`. Enter a new password in the prompt.
+	- `passwd` sets the password of the given user. If no user is given, it sets the password of the current user (which is root).
+14. Run `useradd -m -G wheel <Username>`.
+	- `useradd` obviously creates a new user.
+	- `-m` also creates the home directory for that user.
+	- `-G wheel` adds the user to the `wheel` group, which is the administration group in Arch Linux.
+15. Run `passwd <Username>`. Enter a new password in the prompt.
+16. Run `nano /etc/sudoers`. Uncomment the line `# %wheel ALL=(ALL) ALL`.
