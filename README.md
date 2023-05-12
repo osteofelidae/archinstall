@@ -148,4 +148,30 @@ We now need to mount some of the partitions in order to access the files in them
 	- `-m` also creates the home directory for that user.
 	- `-G wheel` adds the user to the `wheel` group, which is the administration group in Arch Linux.
 15. Run `passwd <Username>`. Enter a new password in the prompt.
-16. Run `nano /etc/sudoers`. Uncomment the line `# %wheel ALL=(ALL) ALL`.
+16. Run `nano /etc/sudoers`. Uncomment the line `# %wheel ALL=(ALL:ALL) ALL`.
+	- This allows the `wheel` user group to execute the `sudo` command.
+
+## 2.2 Installing Grub
+
+We will first install microcode, which is the instruction set for your processor and serves as a translator between Arch and your processor.
+- If you have an intel processor, run `pacman -S intel-ucode`.
+- If you have an AMD processor, run `pacman -S amd-ucode`.
+
+To load your new arch install, we need a bootloader. We will be using `grub` because it is a funny word (and because it is one of the more popular ones and can detect ext4 partitions like the one our Arch install is in.)
+
+1. Run `pacman -S grub efibootmgr`.
+	- `grub` is obviously `grub`, our bootloader.
+	- `efibootmgr` is a tool which allows us to modify the EFI boot manager.
+2. If you have other OSs installed on the same disk, run `pacman -S os-prober`.
+3. Run `mkdir /boot/efi`.
+	- `mkdir` makes a directory at a given location.
+4. Run `mount <EFI partition name> /boot/efi`.
+5. Run `grub-install --target=x86_64-efi --bootloader-id=grub`.
+	- `grub-install` installs `grub`.
+	- `--target=x86_64-efi` is a flag that tells `grub` what type of system you are using.
+	- `--bootloader-id` is the name of the bootloader.
+6. If you have installed `os-prober`, run `nano /etc/default/grub`, find the line `#GRUB_DISABLE_OS_PROBER=false` and uncomment it.
+7. Run `grub-mkconfig -o /boot/grub/grub.cfg`
+	- `grub-mkconfig` generates the `grub` configuration.
+	- `-o`saves the generated configuration to the given file.
+
