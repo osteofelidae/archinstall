@@ -37,7 +37,7 @@ Many things in Linux are stored as files (or folders), including system stats (t
 	- The `ls` command lists all files in a given directory.
 	- `*` is called a 'wildcard', and means 'anything'. In this case, `*.map.gz` means 'anything that ends in .map.gz'.
 	- `**` means 'any directories and subdirectories the current directory contains. In this case, it references `.../keymaps/mac`, `.../keymaps/sum`, etc..
-2. Run `loadkeys <keymap name>` to load a keymap. For example, to load `.../mac-us.map.gz`, run `loadkeys mac-us`. (Notice how the file path and extension are not included.
+2. Run `loadkeys <keymap name>` to load a keymap. For example, to load `.../mac-us.map.gz`, run `loadkeys mac-us`. (Notice how the file path and extension are not included.)
 
 ### 1.2: Connecting to the internet (this is hella important!!!)
 
@@ -46,7 +46,7 @@ Many things in Linux are stored as files (or folders), including system stats (t
 
 To install Arch Linux, you *must* connect to the internet. We will use `iwd` (iNet Wireless Daemon) to do so.
 1. Run `iwctl`. This starts the iNet Wireless ConTroL utility. You should see a prompt similar to `[iwd]#`.
-2. Run `device list`. This, quite obviously, lists the available wireless network devices detected. Take note of the device name of your network card (this is often `wlan0`.
+2. Run `device list`. This, quite obviously, lists the available wireless network devices detected. Take note of the device name of your network card (this is often `wlan0`.)
 3. Run `station <device name> scan`. For example, if your network card is named `wlan0`, you would run `station wlan0 scan`. This scans your surroundings for networks `<device name>` can connect to. *This will not list the networks found. Don't panic - we're getting to that part.*
 4. Run `station <device name> get-networks`. This will list the networks found in the previous step.
 5. Run `station <device name> connect <network SSID>`. Obviously, this connects to the network you specify in the command. It may ask for the network password.
