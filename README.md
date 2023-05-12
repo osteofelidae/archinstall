@@ -1,4 +1,5 @@
 # The Noob's guide to installing Arch Linux
+--> osteofelidae
 **(Warning: contains strong language, mostly 'fuck' and variants thereof.)**
 
 ## -1: Preamble
@@ -13,7 +14,7 @@ I was just like you once, a complete newbie to linux. I had just grown tired of 
 - Your computer is using UEFI with Safe Boot off. (Safe boot can usually be disabled from the UEFI menu at startup. The UEFI menu is accessed in different ways on different systems. If you don't know how, google it for your specific system.)
 	- Note that on some systems with Windows already installed, you may have to disable 'fast startup'. To do this, go to `[Start menu] > 'Choose a power plan' > 'Choose what the power buttons do' > 'Turn on fast startup'` and uncheck the check box.
 
-## 1: Installing the base system
+## 1: Preparation
 
 ### 1.0: Live booting the installation media
 
@@ -46,6 +47,9 @@ To install Arch Linux, you *must* connect to the internet. We will use `iwd` (iN
 4. Run `station <device name> get-networks`. This will list the networks found in the previous step.
 5. Run `station <device name> connect <network SSID>`. Obviously, this connects to the network you specify in the command. It may ask for the network password.
 6. Run `exit` to exit `iwctl`.
+7. You can test if you are connected by running `ping 8.8.8.8`.
+	- `ping` is a command which sends a packet of data to a given address and awaits a response.
+	- `8.8.8.8` is a Google name server. If it is down, we are probably in a nuclear apocalypse, and installing Arch Linux is probably not your biggest concern.
 
 ### 1.3: Partitioning the disks
 
@@ -61,7 +65,7 @@ This is the most fuck-up-able step. Don't back up your computer because you are 
 4. If you are installing Arch on a clean disk (or a virtual machine), you will likely get a prompt that says 'Select label type'. Choose `gpt`.
 5. Navigate to the free space you wish to use (up and down arrow keys) and select `[New]` (right and left arrow keys + enter).
 6. Create a partition of at least 500MB size.
-7. Repeat steps 4 and 5 to create another partition of whatever size you want. This is going to be where the actual OS and your files are, so make it big as fuck.
+7. Repeat steps 4 and 5 to create another partition of whatever size you want. This is going to be where the actual OS and your files are, so make it big as fuck. (We call this the 'root partition'.)
 8. Optional: repeat steps 4 and 5 to create another partition. This is going to be the swap partition, space which is used to offload stuff in RAM when the RAM fills up. For most modern systems, you probably won't need this, but I always make one so I can show it off to my friends.
 9. Now select the partition you made in step 6. Select `[Type]`. In the menu that appears, select `EFI System`.
 10. You don't have to change the file type of the second partition that you made. It's already `Linux filesystem`. If you made a swap partition, change the type of that to `Linux swap`.
@@ -77,3 +81,25 @@ This is a direct continuation of part 1.3.
 	- `mkfs` is a command which generates a filesystem in a given partition.
 	- `.fat` is a variant of that command which generates a FAT filesystem.
 	- `-F32` is a flag which specifies the FAT32 variant of the FAT filesystem.
+3. Run `mkfs.ext4 <Root partition name>`.
+4. If you made a swap partition in section 1.3, run `mkswap <Swap partition name>`.
+
+### 1.5: Mounting the partitions
+
+We now need to mount some of the partitions in order to access the files in them. (There are currently no files in them, we need to add some. If there are already files, you may have a ghost in your house. Run away.)
+
+1. Run `mount <Root partition name> /mnt`. If you forgot what the root partition name was, remember that you can run `fdisk -l` for a list of partitions.
+	- `mount` obviously mounts a given partition. In linux, partitions are represented as directories in the root filesystem, so mounting is synonymous to assigning a partition a directory name. Partitions must be mounted to be accessed.
+	- `/mnt` is a folder *in your live boot of the arch installer*. `/mnt` is a folder in linux systems which is commonly used as a temporary mount point for partitions. Thus, it is perfect for our needs right now.
+2. If you made a swap partition, run `swapon <Swap partition name>`.
+	- `swapon` tells the system to use a given partition as a swap partition.
+
+## 2: Installing the base system (finally)
+
+### 2.0: Installing the base system
+
+1. Run `pacman -Sy` (case sensitive).
+	- `pacman` is the Arch Linux package manager. It can download and install software for you.
+	- `-S` is a flag that tells `pacman` to sync its cache with the online mirror list.
+	- `y` is a flag (sub-flag?) that tells `pacman` to refresh its local copy of the master package database with those it finds online.
+2. 
